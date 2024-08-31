@@ -1,0 +1,33 @@
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #272934;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #272934;
+  margin: 0;
+  padding: 0;
+}
+
+.server-card {
+  position: static;
+  transition: 0.2s linear;
+  border: 1px solid #30323F;
+}
+
+.server-card:hover {
+  box-shadow: 0 0 40px #4a2bb98a;
+  border: 3px solid #4a2bb9;
+}
+
+.server-card-button {
+  background: #232530;
+  transition: 0.2s;
+}
+.server-card-button:hover {
+  background: #2a2c38
+}
