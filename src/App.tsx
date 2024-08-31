@@ -1,13 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/DashboardNavbar";
-import { SidebarPath } from "./SideBarPathApp";
-import HomePage from "./pages/Homes/HomePage";
+import HomeNavbar from "./components/HomeNavbar";
+import { AuthProvider } from "./context/AuthContext";
 import Callback from "./pages/Callback";
 import ChooseGuild from "./pages/ChooseGuild";
-import { AuthProvider } from "./context/AuthContext";
-import HomeNavbar from "./components/HomeNavbar";
-import Leaderboard from "./pages/Leaderboard";
+import Home from "./pages/Home";
+import { SidebarPath } from "./SideBarPathApp";
 
 const router = createBrowserRouter([
   {
@@ -24,25 +23,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <HomeNavbar></HomeNavbar>,
+    element: <HomeNavbar />,
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>,
-      },
-      {
-        path: "/leaderboard/:guildId",
-        element: <Leaderboard />,
+        element: <Home />,
       },
     ],
   },
   {
     path: "/callback",
-    element: <Callback></Callback>,
+    element: <Callback />,
   },
   {
     path: "/choose-guild",
-    element: <ChooseGuild></ChooseGuild>,
+    element: <ChooseGuild />,
   },
 ]);
 

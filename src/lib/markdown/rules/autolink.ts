@@ -4,7 +4,7 @@ import { MarkdownRule, parseUrl } from "../helpers";
 import { link } from "./link";
 
 export const autolink: MarkdownRule = {
-	...defaultRules.autolink,
-	parse: parseUrl,
-	react: link.react
+  ...defaultRules.autolink,
+  parse: parseUrl,
+  react: link.react,
 };

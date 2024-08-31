@@ -2,7 +2,6 @@
   --mantine-color-body: #272934;
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -16,7 +15,7 @@ body {
 .server-card {
   position: static;
   transition: 0.2s linear;
-  border: 1px solid #30323F;
+  border: 1px solid #30323f;
 }
 
 .server-card:hover {
@@ -29,5 +28,5 @@ body {
   transition: 0.2s;
 }
 .server-card-button:hover {
-  background: #2a2c38
+  background: #2a2c38;
 }

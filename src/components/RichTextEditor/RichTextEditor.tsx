@@ -67,7 +67,7 @@ export function RichEditor({
     setContent(
       enableMarkdown
         ? editor.storage.markdown.getMarkdown().replaceAll(/<\/?u>/g, "__")
-        : editor.getHTML()
+        : editor.getHTML(),
     );
   });
 
