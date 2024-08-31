@@ -13,20 +13,12 @@ const HomeNavbar = () => {
         <ul>
           <Flex gap={20}>
             <li>
-              <Text
-                size="xl"
-                ref={homeRef}
-                color={homeHovered ? "#ffffff" : "#b3b3b3"}
-              >
+              <Text size="xl" ref={homeRef} color={homeHovered ? "#ffffff" : "#b3b3b3"}>
                 Home
               </Text>
             </li>
             <li>
-              <Text
-                size="xl"
-                ref={dashboardRef}
-                color={dashboardHovered ? "#ffffff" : "#b3b3b3"}
-              >
+              <Text size="xl" ref={dashboardRef} color={dashboardHovered ? "#ffffff" : "#b3b3b3"}>
                 <Link to="/dashboard">Dashboard</Link>
               </Text>
             </li>

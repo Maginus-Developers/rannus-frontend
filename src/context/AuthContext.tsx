@@ -9,21 +9,9 @@ export type AuthContextType = object;
 
 export const AuthContext = createContext<AuthContextType>({});
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const {
-    checkUser,
-    loading: userLoading,
-    token,
-    setUser,
-  } = useUserStore((state) => state);
-  const {
-    fetchedGuild,
-    loading: guildLoading,
-    guilds,
-    setGuild,
-  } = useGuildStore((state) => state);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { checkUser, loading: userLoading, token, setUser } = useUserStore((state) => state);
+  const { fetchedGuild, loading: guildLoading, guilds, setGuild } = useGuildStore((state) => state);
   useEffect(() => {
     checkUser(false).then((res) => {
       if (res.status == 200) {

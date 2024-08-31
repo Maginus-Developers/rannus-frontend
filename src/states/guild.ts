@@ -97,9 +97,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       const guildMap = {} as Record<string, Guild>;
       data.forEach((guild) => (guildMap[guild.id] = guild));
       if (localStorage.getItem("guild")) {
-        const chosenGuild = data.find(
-          (guild) => guild.id === localStorage.getItem("guild"),
-        );
+        const chosenGuild = data.find((guild) => guild.id === localStorage.getItem("guild"));
         set((state) => ({
           ...state,
           loading: false,

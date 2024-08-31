@@ -1,15 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  Container,
-  Flex,
-  Image,
-  ScrollArea,
-  SimpleGrid,
-  Title,
-} from "@mantine/core";
+import { Avatar, Box, Button, Center, Container, Flex, Image, ScrollArea, SimpleGrid, Title } from "@mantine/core";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
 import { useGuildStore } from "../states/guild";
 import { useUserStore } from "../states/user";
@@ -17,11 +6,7 @@ import autoAnimate from "@formkit/auto-animate";
 import { useEffect, useState, useRef } from "react";
 
 const ChooseGuild = () => {
-  const {
-    user,
-    redirectAuth,
-    loading: userLoading,
-  } = useUserStore((state) => state);
+  const { user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
   const { guilds, choseGuild } = useGuildStore((state) => state);
   const [imageTrigger, setImageTrigger] = useState("");
   const parent = useRef(null);
@@ -104,11 +89,7 @@ const ChooseGuild = () => {
           >
             <Title p="xl">Select A Server</Title>
           </Center>
-          <SimpleGrid
-            cols={{ base: 1, sm: 2, lg: 3 }}
-            spacing={{ base: 10, sm: "lg" }}
-            px={"20px"}
-          >
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 10, sm: "lg" }} px={"20px"}>
             {Object.values(guilds).map((server) => (
               <Box
                 key={server.id}
@@ -123,23 +104,11 @@ const ChooseGuild = () => {
                 <Flex direction={"column"}>
                   <Box
                     pos={"relative"}
-                    onMouseOver={() =>
-                      setImageTrigger(
-                        server.banner
-                          ? `${server.banner}?size=4096`
-                          : server.icon
-                            ? `${server.icon}?size=4096`
-                            : "",
-                      )
-                    }
+                    onMouseOver={() => setImageTrigger(server.banner ? `${server.banner}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
                     onMouseLeave={() => setImageTrigger("")}
                   >
                     <Image
-                      src={
-                        server.banner
-                          ? `${server.banner}?size=4096`
-                          : server.icon && `${server.icon}?size=4096`
-                      }
+                      src={server.banner ? `${server.banner}?size=4096` : server.icon && `${server.icon}?size=4096`}
                       fit="cover"
                       h="8rem"
                       fallbackSrc="https://static.vecteezy.com/system/resources/previews/003/872/073/non_2x/seamless-coffee-tool-pattern-doodle-coffee-tool-icon-vector.jpg"
@@ -157,8 +126,7 @@ const ChooseGuild = () => {
                         borderTopLeftRadius: "12px",
                         borderTopRightRadius: "12px",
                         transform: "translateY(2px)",
-                        background:
-                          "linear-gradient(to top, #1f212a 4%, #1f212a00)",
+                        background: "linear-gradient(to top, #1f212a 4%, #1f212a00)",
                       }}
                     ></Box>
 
@@ -179,19 +147,9 @@ const ChooseGuild = () => {
                           }}
                         >
                           {server.icon ? (
-                            <Avatar
-                              src={server.icon}
-                              radius={"lg"}
-                              size={"lg"}
-                              color="gray"
-                            ></Avatar>
+                            <Avatar src={server.icon} radius={"lg"} size={"lg"} color="gray"></Avatar>
                           ) : (
-                            <Avatar
-                              name={server.name}
-                              radius={"lg"}
-                              size={"lg"}
-                              color="gray"
-                            ></Avatar>
+                            <Avatar name={server.name} radius={"lg"} size={"lg"} color="gray"></Avatar>
                           )}
                         </div>
                         <Box
@@ -215,15 +173,7 @@ const ChooseGuild = () => {
                       style={{
                         borderRadius: "8px",
                       }}
-                      onMouseOver={() =>
-                        setImageTrigger(
-                          server.icon
-                            ? `${server.icon}?size=4096`
-                            : server.icon
-                              ? `${server.icon}?size=4096`
-                              : "",
-                        )
-                      }
+                      onMouseOver={() => setImageTrigger(server.icon ? `${server.icon}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
                       onMouseLeave={() => setImageTrigger("")}
                       onClick={
                         server.bot_joined
@@ -234,9 +184,7 @@ const ChooseGuild = () => {
                           : inviteBot
                       }
                     >
-                      {server.bot_joined
-                        ? "Go to Dashboard"
-                        : "Invite To Server"}
+                      {server.bot_joined ? "Go to Dashboard" : "Invite To Server"}
                     </Button>
                   </Box>
                 </Flex>

@@ -10,26 +10,13 @@ const Sidebar = () => {
   return (
     <>
       {SidebarPath.map((key, index) => (
-        <CustomButton
-          key={index}
-          feat={key}
-          chosen={checkPath(currentPath.pathname, key.path)}
-          isMobile={isMobile}
-        ></CustomButton>
+        <CustomButton key={index} feat={key} chosen={checkPath(currentPath.pathname, key.path)} isMobile={isMobile}></CustomButton>
       ))}
     </>
   );
 };
 
-const CustomButton = ({
-  feat,
-  chosen,
-  isMobile = false,
-}: {
-  feat: RouteObjectWithMeta;
-  chosen?: boolean;
-  isMobile?: boolean;
-}) => {
+const CustomButton = ({ feat, chosen, isMobile = false }: { feat: RouteObjectWithMeta; chosen?: boolean; isMobile?: boolean }) => {
   // const theme = useMantineTheme();
   const { hovered, ref } = useHover();
   return (

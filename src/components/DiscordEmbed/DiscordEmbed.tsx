@@ -43,13 +43,7 @@ export default function DiscordEmbed({ embed }: { embed: Embed }) {
         {embed.author.name || embed.author.iconUrl ? (
           <div className="min-w-0 flex items-center col-[1/1] mt-2">
             {/* Author Icon */}
-            {embed.author.iconUrl ? (
-              <img
-                className="h-6 w-6 rounded-full mr-2 object-contain"
-                src={embed.author.iconUrl}
-                alt=""
-              />
-            ) : null}
+            {embed.author.iconUrl ? <img className="h-6 w-6 rounded-full mr-2 object-contain" src={embed.author.iconUrl} alt="" /> : null}
 
             {/* Author Name */}
             <a
@@ -57,9 +51,7 @@ export default function DiscordEmbed({ embed }: { embed: Embed }) {
               target="_blank"
               rel="noopener noreferrer"
               role="button"
-              className={`text-white text-sm font-semibold ${
-                embed.author.url ? "hover:underline" : "cursor-text"
-              }`}
+              className={`text-white text-sm font-semibold ${embed.author.url ? "hover:underline" : "cursor-text"}`}
             >
               {embed.author.name}
             </a>
@@ -73,9 +65,7 @@ export default function DiscordEmbed({ embed }: { embed: Embed }) {
             target="_blank"
             rel="noopener noreferrer"
             role="button"
-            className={`min-w-0 text-white inline-block font-semibold col-[1/1] mt-2 ${
-              embed.url ? "hover:underline text-[#00b0f4]" : "cursor-text"
-            }`}
+            className={`min-w-0 text-white inline-block font-semibold col-[1/1] mt-2 ${embed.url ? "hover:underline text-[#00b0f4]" : "cursor-text"}`}
           >
             <Markdown type="header">{embed.title}</Markdown>
           </a>
@@ -92,11 +82,7 @@ export default function DiscordEmbed({ embed }: { embed: Embed }) {
         {embed.fields.length ? (
           <div className="min-w-0 grid col-[1/1] mt-2 gap-2">
             {embed.fields.map((field, index) => (
-              <div
-                key={index}
-                className="min-w-0 text-sm leading-[1.125rem] font-normal"
-                style={{ gridColumn: fieldGridCols[index] }}
-              >
+              <div key={index} className="min-w-0 text-sm leading-[1.125rem] font-normal" style={{ gridColumn: fieldGridCols[index] }}>
                 {/* Field Name */}
                 <div className="min-w-0 text-white font-semibold mb-0.5">
                   <Markdown type="header">{field.name}</Markdown>
@@ -118,47 +104,27 @@ export default function DiscordEmbed({ embed }: { embed: Embed }) {
               embed.thumbnail ? "col-[1/3]" : "col-[1/1]"
             }`}
           >
-            <img
-              className="object-contain max-h-full max-w-full"
-              src={embed.image}
-              alt={embed.image}
-            />
+            <img className="object-contain max-h-full max-w-full" src={embed.image} alt={embed.image} />
           </div>
         ) : null}
 
         {/* Thumbnail */}
         {embed.thumbnail ? (
           <div className="min-w-0 row-[1/8] col-[2/2] mt-2 ml-4 shrink-0 justify-self-end block max-w-20 max-h-20 rounded-[3px] cursor-pointer overflow-hidden">
-            <img
-              className="object-contain max-h-full max-w-full"
-              src={embed.thumbnail}
-              alt={embed.thumbnail}
-            />
+            <img className="object-contain max-h-full max-w-full" src={embed.thumbnail} alt={embed.thumbnail} />
           </div>
         ) : null}
 
         {/* Footer */}
         {embed.footer.text || embed.footer.iconUrl ? (
-          <div
-            className={`min-w-0 flex items-center mt-2 row-auto ${
-              embed.thumbnail ? "col-[1/3]" : "col-[1/1]"
-            }`}
-          >
+          <div className={`min-w-0 flex items-center mt-2 row-auto ${embed.thumbnail ? "col-[1/3]" : "col-[1/1]"}`}>
             {/* Footer Icon */}
-            {embed.footer.iconUrl ? (
-              <img
-                className="h-5 w-5 rounded-full mr-2 object-contain"
-                src={embed.footer.iconUrl}
-                alt=""
-              />
-            ) : null}
+            {embed.footer.iconUrl ? <img className="h-5 w-5 rounded-full mr-2 object-contain" src={embed.footer.iconUrl} alt="" /> : null}
 
             {/* Footer Text */}
             <div className="min-w-0 text-xs font-medium">
               {embed.footer.text}
-              {embed.footer.text && embed.timestamp ? (
-                <span className="inline-block mx-1">&bull;</span>
-              ) : null}
+              {embed.footer.text && embed.timestamp ? <span className="inline-block mx-1">&bull;</span> : null}
               {embed.timestamp ? "Today at 12:00 PM" : null}
             </div>
           </div>

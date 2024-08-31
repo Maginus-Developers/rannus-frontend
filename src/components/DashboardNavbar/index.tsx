@@ -1,13 +1,4 @@
-import {
-  AppShell,
-  Burger,
-  Button,
-  Center,
-  em,
-  Flex,
-  Image,
-  ScrollArea,
-} from "@mantine/core";
+import { AppShell, Burger, Button, Center, em, Flex, Image, ScrollArea } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconBell } from "@tabler/icons-react";
 import { useEffect } from "react";
@@ -21,12 +12,7 @@ import Sidebar from "./Sidebar";
 
 const Navbar = () => {
   const [opened, { toggle }] = useDisclosure();
-  const {
-    isLogout,
-    user,
-    redirectAuth,
-    loading: userLoading,
-  } = useUserStore((state) => state);
+  const { isLogout, user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
   const { chosenGuild } = useGuildStore((state) => state);
 
   const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
@@ -73,21 +59,9 @@ const Navbar = () => {
             sm: "2.5rem",
           }}
         >
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            hiddenFrom="sm"
-            size="sm"
-            mx="sm"
-          />
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" mx="sm" />
           <div>
-            <Image
-              color="initials"
-              fit="contain"
-              h={50}
-              src={Logo}
-              radius={"xl"}
-            ></Image>
+            <Image color="initials" fit="contain" h={50} src={Logo} radius={"xl"}></Image>
           </div>
           <Flex align="center" h="100%">
             {/* <Button variant="light" color="yellow" visibleFrom="md">
@@ -106,9 +80,7 @@ const Navbar = () => {
         bg={bg}
         style={{
           borderRadius: isMobile ? "0" : "33px",
-          ...(isMobile
-            ? {}
-            : { height: `calc(100vh - ${headerHeight + 40}px)` }),
+          ...(isMobile ? {} : { height: `calc(100vh - ${headerHeight + 40}px)` }),
         }}
         m={isMobile ? "0" : "md"}
       >

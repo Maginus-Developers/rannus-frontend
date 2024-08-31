@@ -3,8 +3,7 @@ import { defaultRules } from "simple-markdown";
 import { MarkdownRule } from "../helpers";
 
 const BEGINNING_OF_LINE_RE = /^$|\n *$/;
-const BLOCK_QUOTE_RE =
-  /^( *>>> +([\S\s]*))|^( *>(?!>>) +[^\n]*(\n *>(?!>>) +[^\n]*)*\n?)/;
+const BLOCK_QUOTE_RE = /^( *>>> +([\S\s]*))|^( *>(?!>>) +[^\n]*(\n *>(?!>>) +[^\n]*)*\n?)/;
 
 const SINGLELINE_QUOTE_RE = /^ *> ?/gm;
 const MULTILINE_QUOTE_RE = /^ *>>> ?/;
@@ -56,9 +55,7 @@ export const blockQuote: MarkdownRule = {
   react: (node, output, state) => (
     <div key={state.key} className="flex">
       <div className="min-w-[.25rem] max-w-[.25rem] rounded bg-[#50545c]" />
-      <blockquote className="max-w-full pr-2 pl-3 m-0 indent-0">
-        {output(node.content, state)}
-      </blockquote>
+      <blockquote className="max-w-full pr-2 pl-3 m-0 indent-0">{output(node.content, state)}</blockquote>
     </div>
   ),
 };

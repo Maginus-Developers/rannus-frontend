@@ -12,9 +12,7 @@ const ServerList = () => {
           bg="#16171F"
           w={"100%"}
           color={"white"}
-          leftSection={
-            <Avatar radius="xl" src={chosenGuild?.icon ?? ""}></Avatar>
-          }
+          leftSection={<Avatar radius="xl" src={chosenGuild?.icon ?? ""}></Avatar>}
           rightSection={<IconArrowDown></IconArrowDown>}
           size="lg"
           radius={"md"}
@@ -23,11 +21,7 @@ const ServerList = () => {
         </Button>
       </Menu.Target>
 
-      <Menu.Dropdown
-        bg={"#1f212a"}
-        variant="transparent"
-        ml={{ sm: "0", md: "sm" }}
-      >
+      <Menu.Dropdown bg={"#1f212a"} variant="transparent" ml={{ sm: "0", md: "sm" }}>
         {Object.values(guilds)
           .filter((a) => a.bot_joined)
           .map((server) => (

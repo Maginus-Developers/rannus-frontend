@@ -3,8 +3,7 @@ import "./App.css";
 import Navbar from "./components/DashboardNavbar";
 import HomeNavbar from "./components/HomeNavbar";
 import { AuthProvider } from "./context/AuthContext";
-import Callback from "./pages/Callback";
-import ChooseGuild from "./pages/ChooseGuild";
+import AuthCallback from "./pages/AuthCallback";
 import Home from "./pages/Home";
 import { SidebarPath } from "./SideBarPathApp";
 
@@ -33,11 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/callback",
-    element: <Callback />,
-  },
-  {
-    path: "/choose-guild",
-    element: <ChooseGuild />,
+    element: <AuthCallback />,
   },
 ]);
 

@@ -1,12 +1,6 @@
 import { toASCII } from "punycode";
 
-import {
-  ParseFunction,
-  ParserRule,
-  ReactOutputRule,
-  outputFor,
-  parserFor,
-} from "simple-markdown";
+import { ParseFunction, ParserRule, ReactOutputRule, outputFor, parserFor } from "simple-markdown";
 
 export type MarkdownRule = ParserRule & ReactOutputRule;
 

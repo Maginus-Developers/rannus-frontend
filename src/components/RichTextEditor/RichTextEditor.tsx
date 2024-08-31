@@ -64,11 +64,7 @@ export function RichEditor({
 
   editor.on("update", ({ editor }) => {
     // block dont change size of text if heading=false
-    setContent(
-      enableMarkdown
-        ? editor.storage.markdown.getMarkdown().replaceAll(/<\/?u>/g, "__")
-        : editor.getHTML(),
-    );
+    setContent(enableMarkdown ? editor.storage.markdown.getMarkdown().replaceAll(/<\/?u>/g, "__") : editor.getHTML());
   });
 
   return (

@@ -5,10 +5,7 @@ import { MarkdownRule } from "../helpers";
 export const inlineCode: MarkdownRule = {
   ...defaultRules.inlineCode,
   react: (node, _output, state) => (
-    <code
-      key={state.key}
-      className="p-[.2em] my-[-.2em] rounded-[3px] bg-[#202225] text-[.75rem] leading-[1.125rem] whitespace-pre-wrap"
-    >
+    <code key={state.key} className="p-[.2em] my-[-.2em] rounded-[3px] bg-[#202225] text-[.75rem] leading-[1.125rem] whitespace-pre-wrap">
       {node.content}
     </code>
   ),
