@@ -1,50 +1,51 @@
-# React + TypeScript + Vite
+# QR Code Generator Server
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple API server for generating QR codes.
 
-Currently, two official plugins are available:
+## 💪 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ Asynchronous QR code generation
+- ✅ Fast and lightweight
+- ✅ Different formats (PNG, SVG, etc.)
+- ✅ Customizable QR code size, color, etc
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+- [Bun](https://bun.sh)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+### Step 1
+
+Install the dependencies
+
+```sh {"id":"01J6K7JKVY7RS3486R0TW8XXAG"}
+bun i
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Step 3
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+Start the server
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
+```sh {"id":"01J6K7P605DHZ0FABRMZHVTPZ3"}
+bun run dev
 ```
+
+## 📚 Tech Stack
+
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [Bun](https://bun.sh)
+- [Mantine](https://mantine.dev/)
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.
+
+## 🤝 Contributions
+
+Any contribution is appreciated. Just create an issue/pull request and I will review it ASAP.
+
+## 🔗 Share this project
+
+If you like this project, please give it a ⭐ and share it with your friends!
