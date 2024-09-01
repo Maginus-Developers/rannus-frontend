@@ -1,13 +1,6 @@
-# QR Code Generator Server
+# Rannus bot Dashboard
 
-A simple API server for generating QR codes.
-
-## 💪 Features
-
-- ✅ Asynchronous QR code generation
-- ✅ Fast and lightweight
-- ✅ Different formats (PNG, SVG, etc.)
-- ✅ Customizable QR code size, color, etc
+A dashboard to manage the multi-purpose discord bot Rannus.
 
 ## 🚀 Getting Started
 
@@ -23,9 +16,9 @@ Install the dependencies
 bun i
 ```
 
-### Step 3
+### Step 2
 
-Start the server
+Run vite for a dev server
 
 ```sh {"id":"01J6K7P605DHZ0FABRMZHVTPZ3"}
 bun run dev
