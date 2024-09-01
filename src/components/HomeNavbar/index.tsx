@@ -1,35 +1,35 @@
-import { Box, Flex, ScrollArea, Text } from "@mantine/core";
+import { Box, Flex, Group, Text } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
+import { IconHome, IconLayoutDashboard } from "@tabler/icons-react";
 import { Link, Outlet, ScrollRestoration } from "react-router-dom";
 
-const HomeNavbar = () => {
+export default function HomeNavbar() {
   const { hovered: homeHovered, ref: homeRef } = useHover();
   const { hovered: dashboardHovered, ref: dashboardRef } = useHover();
 
   return (
-    <Box h="100vh">
+    <Box>
       <ScrollRestoration />
       <Box pt="30px" pl="40px">
-        <ul>
-          <Flex gap={20}>
-            <li>
-              <Text size="xl" ref={homeRef} color={homeHovered ? "#ffffff" : "#b3b3b3"}>
-                Home
-              </Text>
-            </li>
-            <li>
-              <Text size="xl" ref={dashboardRef} color={dashboardHovered ? "#ffffff" : "#b3b3b3"}>
-                <Link to="/dashboard">Dashboard</Link>
-              </Text>
-            </li>
+        <Group gap="xl" align="center" c="blue">
+          <Flex align={"center"} gap={"xs"}>
+            <IconHome />
+            <Text m={0} size="xl" ref={homeRef} c={homeHovered ? "#ffffff" : "#b3b3b3"}>
+              Home
+            </Text>
           </Flex>
-        </ul>
+
+          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+            <Flex align={"center"} gap={"xs"}>
+              <IconLayoutDashboard />
+              <Text m={0} size="xl" ref={dashboardRef} c={dashboardHovered ? "#ffffff" : "#b3b3b3"}>
+                Dashboard
+              </Text>
+            </Flex>
+          </Link>
+        </Group>
       </Box>
-      <ScrollArea h="calc(100vh - 60px)">
-        <Outlet />
-      </ScrollArea>
+      <Outlet />
     </Box>
   );
-};
-
-export default HomeNavbar;
+}

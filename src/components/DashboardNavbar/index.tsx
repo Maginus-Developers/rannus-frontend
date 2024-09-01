@@ -10,7 +10,7 @@ import { ProfileIcon } from "./ProfileIcon";
 import ServerList from "./ServerList";
 import Sidebar from "./Sidebar";
 
-const Navbar = () => {
+const DashboardNavbar = () => {
   const [opened, { toggle }] = useDisclosure();
   const { isLogout, user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
   const { chosenGuild } = useGuildStore((state) => state);
@@ -104,4 +104,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default DashboardNavbar;

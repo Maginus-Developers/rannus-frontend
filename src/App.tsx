@@ -1,26 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/DashboardNavbar";
-import HomeNavbar from "./components/HomeNavbar";
-import { AuthProvider } from "./context/AuthContext";
 import AuthCallback from "./pages/AuthCallback";
+// import Dashboard from "./pages/Dashboard";
+// import GuildChooser from "./pages/GuildChooser";
 import Home from "./pages/Home";
 import { SidebarPath } from "./SideBarPathApp";
 import ChooseGuild from "./pages/ChooseGuild";
 import LeaderBoard from "./pages/LeaderBoard";
+import HomeNavbar from "./components/HomeNavbar";
+import DashboardNavbar from "./components/DashboardNavbar";
+import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
     path: "/dashboard",
-    element: <Navbar />,
-    children: [
-      {
-        path: "about",
-        element: <div>About</div>,
-      },
-
-      ...SidebarPath,
-    ],
+    element: <DashboardNavbar />,
+    children: SidebarPath,
   },
   {
     path: "/",
@@ -46,14 +41,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
-
-export default App;

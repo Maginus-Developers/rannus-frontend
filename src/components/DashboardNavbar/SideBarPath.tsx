@@ -1,11 +1,11 @@
-import HomesPage from "../../pages/Homes/Dashboard";
+import HomesPage from "@/pages/Dashboard";
 
 import { IconHome, IconWaveSine } from "@tabler/icons-react";
-import { RouteObjectWithMeta } from "../../types";
+import { RouteObjectWithMeta } from "@/types";
 
 export const SidebarPath: RouteObjectWithMeta[] = [
   {
-    path: "/dashboard",
+    path: "/",
     element: <HomesPage />,
     icon: <IconHome />,
     name: "Dashboard",
