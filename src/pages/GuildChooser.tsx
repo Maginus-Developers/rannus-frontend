@@ -1,7 +1,7 @@
 import autoAnimate from "@formkit/auto-animate";
 import { Avatar, Box, Button, Center, Container, Flex, Image, ScrollArea, SimpleGrid, Title } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { ScrollRestoration } from "react-router-dom";
+import { ScrollRestoration, useNavigate } from "react-router-dom";
 
 interface Guild {
   did: string;
@@ -14,12 +14,12 @@ interface Guild {
   id: string;
 }
 
-export default function ChooseGuild() {
+export default function GuildChooser() {
   // const { user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
   // const { guilds, choseGuild } = useGuildStore((state) => state);
   const [imageTrigger, setImageTrigger] = useState("");
   const parent = useRef(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (!user && !userLoading) {
@@ -87,16 +87,16 @@ export default function ChooseGuild() {
             <Title p="xl">Select A Server</Title>
           </Center>
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 10, sm: "lg" }} px="20px">
-            {guilds.map((server) => (
-              <Box key={server.id} color="blue" h="fit-content" bg="#1f212a" className="server-card" style={{ borderRadius: "12px" }}>
+            {guilds.map((guild) => (
+              <Box key={guild.id} color="blue" h="fit-content" bg="#1f212a" className="server-card" style={{ borderRadius: "12px" }}>
                 <Flex direction={"column"}>
                   <Box
                     pos="relative"
-                    onMouseOver={() => setImageTrigger(server.banner ? `${server.banner}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
+                    onMouseOver={() => setImageTrigger(guild.banner ? `${guild.banner}?size=4096` : guild.icon ? `${guild.icon}?size=4096` : "")}
                     onMouseLeave={() => setImageTrigger("")}
                   >
                     <Image
-                      src={server.banner ? `${server.banner}?size=4096` : server.icon && `${server.icon}?size=4096`}
+                      src={guild.banner ? `${guild.banner}?size=4096` : guild.icon && `${guild.icon}?size=4096`}
                       fit="cover"
                       h="8rem"
                       fallbackSrc="https://static.vecteezy.com/system/resources/previews/003/872/073/non_2x/seamless-coffee-tool-pattern-doodle-coffee-tool-icon-vector.jpg"
@@ -125,11 +125,11 @@ export default function ChooseGuild() {
                             borderRadius: "15px",
                           }}
                         >
-                          <Avatar {...(server.icon ? { src: server.icon } : { name: server.name })} radius="lg" size="lg" color="gray" />
+                          <Avatar {...(guild.icon ? { src: guild.icon } : { name: guild.name })} radius="lg" size="lg" color="gray" />
                         </Box>
                         <Box px="12px" style={{ transform: "translateY(22px)" }}>
                           <Title order={3} lineClamp={1}>
-                            {server.name}
+                            {guild.name}
                           </Title>
                         </Box>
                       </Flex>
@@ -141,10 +141,13 @@ export default function ChooseGuild() {
                       w="100%"
                       className="server-card-button"
                       style={{ borderRadius: "8px" }}
-                      onMouseOver={() => setImageTrigger(server.icon ? `${server.icon}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
+                      onMouseOver={() => setImageTrigger(guild.icon ? `${guild.icon}?size=4096` : guild.icon ? `${guild.icon}?size=4096` : "")}
                       onMouseLeave={() => setImageTrigger("")}
+                      onClick={() => {
+                        navigate(`/guild/${guild.id}`);
+                      }}
                     >
-                      {server.bot_joined ? "Go to Dashboard" : "Invite To Server"}
+                      {guild.bot_joined ? "Go to Dashboard" : "Invite To Server"}
                     </Button>
                   </Box>
                 </Flex>

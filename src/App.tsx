@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import AuthCallback from "./pages/AuthCallback";
+import Dashboard from "./pages/Dashboard";
+import GuildChooser from "./pages/GuildChooser";
 import Home from "./pages/Home";
 
 const router = createBrowserRouter([
@@ -11,6 +13,14 @@ const router = createBrowserRouter([
   {
     path: "/callback",
     element: <AuthCallback />,
+  },
+  {
+    path: "/dashboard",
+    element: <GuildChooser />,
+  },
+  {
+    path: "/guild/:guildId",
+    element: <Dashboard />,
   },
 ]);
 
