@@ -27,6 +27,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
   chosenGuild: undefined,
   loading: true,
   fetchedGuild: async (autoRedirect) => {
+    set({ loading: true, error: undefined, guilds: {}, status: undefined });
     if (!window.localStorage.getItem("token")) {
       if (!autoRedirect) {
         set({ loading: false, error: "Unauthorized", guilds: {}, status: 401 });

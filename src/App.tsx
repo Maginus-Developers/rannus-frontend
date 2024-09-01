@@ -6,6 +6,8 @@ import { AuthProvider } from "./context/AuthContext";
 import AuthCallback from "./pages/AuthCallback";
 import Home from "./pages/Home";
 import { SidebarPath } from "./SideBarPathApp";
+import ChooseGuild from "./pages/ChooseGuild";
+import LeaderBoard from "./pages/LeaderBoard";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +30,19 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/leaderboard/:guildId",
+        element: <LeaderBoard />,
+      },
     ],
   },
   {
     path: "/callback",
     element: <AuthCallback />,
+  },
+  {
+    path: "/choose-guild",
+    element: <ChooseGuild />,
   },
 ]);
 

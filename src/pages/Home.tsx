@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Text, Title } from "@mantine/core";
+import { client_id } from "../constants";
 
 export default function Home() {
   return (
@@ -11,7 +12,19 @@ export default function Home() {
           Moderate Your Discord Servers And Grow It.
         </Text>
         <Box>
-          <Button variant="outline" size="md" color="#ffffff">
+          <Button
+            variant="outline"
+            size="md"
+            color="#ffffff"
+            onClick={() =>
+              window
+                .open(
+                  `https://discord.com/oauth2/authorize?client_id=${client_id}&permissions=8&integration_type=0&scope=bot+applications.commands`,
+                  "_blank"
+                )
+                ?.focus()
+            }
+          >
             Invite Now
           </Button>
         </Box>

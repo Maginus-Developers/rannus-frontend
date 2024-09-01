@@ -1,5 +1,4 @@
 import HomesPage from "./pages/Homes/Dashboard";
-import WelcomeChannel from "./pages/WelcomeChannel";
 import { IconHome, IconWaveSine } from "@tabler/icons-react";
 import { RouteObjectWithMeta } from "./types";
 
@@ -21,7 +20,7 @@ export const SidebarPath: RouteObjectWithMeta[] = [
   },
   {
     path: "/dashboard/welcome",
-    element: <WelcomeChannel></WelcomeChannel>,
+    element: <div>Welcome</div>,
     icon: <IconWaveSine />,
     name: "Welcome",
   },

@@ -1,8 +1,8 @@
-import { Box, LoadingOverlay } from "@mantine/core";
+import { Flex, Loader, Title } from "@mantine/core";
 import React, { createContext, useEffect } from "react";
+import { REALTIME_URL } from "../constants";
 import { useGuildStore } from "../states/guild";
 import { useUserStore } from "../states/user";
-import { REALTIME_URL } from "../constants";
 import { Guild, User } from "../types";
 
 export type AuthContextType = object;
@@ -75,14 +75,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   if (userLoading || guildLoading) {
     return (
-      <Box pos="relative" h="100vh" w="100vw">
-        <LoadingOverlay
-          visible={userLoading || guildLoading}
-          zIndex={1000}
-          overlayProps={{ radius: "sm", blur: 2 }}
-          loaderProps={{ color: "pink", type: "bars" }}
-        />
-      </Box>
+      <Flex w="100vw" h="100vh" direction="column" justify="center" align="center">
+        <Title order={1}>Loading...</Title>
+        <Loader size="xl" />
+      </Flex>
     );
   }
 

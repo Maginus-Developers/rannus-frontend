@@ -4,6 +4,7 @@ import { useGuildStore } from "../states/guild";
 import { useUserStore } from "../states/user";
 import autoAnimate from "@formkit/auto-animate";
 import { useEffect, useState, useRef } from "react";
+import { client_id } from "../constants";
 
 const ChooseGuild = () => {
   const { user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
@@ -27,7 +28,11 @@ const ChooseGuild = () => {
       });
   }, [parent]);
 
-  const inviteBot = async () => {};
+  const inviteBot = async () => {
+    window
+      .open(`https://discord.com/oauth2/authorize?client_id=${client_id}&permissions=8&integration_type=0&scope=bot+applications.commands`, "_blank")
+      ?.focus();
+  };
   return (
     <ScrollArea h={`100vh`}>
       <Container size="xl" p={"0"} pos={"relative"}>
