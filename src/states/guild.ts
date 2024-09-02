@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { API_URL } from "../constants";
-import { redirectAuth } from "./user";
+import { redirectAuth, useUser } from "./user";
 import { Guild } from "../types";
+import { createSelectors } from "../utils";
 
 type State = {
   guilds: Record<string, Guild>;
@@ -18,8 +19,15 @@ type ApiResponse = {
 };
 type Actions = {
   fetchedGuild: (autoRedirect: boolean) => Promise<ApiResponse>;
-  choseGuild: (id: string) => () => void;
+  choseGuild: (id: string) => () => {
+    guilds: Guild[];
+    message: string;
+    status: number;
+    displayMessage: string;
+    error?: string;
+  };
   setGuild: (guild: Guild) => void;
+  removeChosenGuild: () => void;
 };
 
 export const useGuildStore = create<State & Actions>((set, get) => ({
@@ -99,6 +107,17 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       data.forEach((guild) => (guildMap[guild.id] = guild));
       if (localStorage.getItem("guild")) {
         const chosenGuild = data.find((guild) => guild.id === localStorage.getItem("guild"));
+        if (!chosenGuild?.bot_joined) {
+          return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
+        };
+        const userID = useUser.getState().user?.id;
+        if (!userID) {
+          return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
+        }
+        console.log(chosenGuild.guild_admin, userID)
+        if (!chosenGuild.guild_admin.includes(userID)) {
+          return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
+        };
         set((state) => ({
           ...state,
           loading: false,
@@ -144,13 +163,51 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
   },
   choseGuild: (id) => () => {
     const chosenGuild = get().guilds[id];
-    if (!chosenGuild) return;
+    if (!chosenGuild) return {
+      guilds: [],
+      message: "Guild not found",
+      status: 404,
+      displayMessage: "Guild not found",
+      error: "Guild not found"
+    };
+    if (!chosenGuild.bot_joined) return {
+      guilds: [],
+      message: "Unauthorized",
+      status: 401,
+      displayMessage: "Unauthorized",
+      error: "Unauthorized"
+    };
+    const userID = useUser.getState().user?.id
+    console.log(userID)
+    if (!userID) return {
+      guilds: [],
+      message: "Unauthorized",
+      status: 401,
+      displayMessage: "Unauthorized",
+      error: "Unauthorized"
+    }
+    if (!chosenGuild.guild_admin.includes(userID)) return {
+      guilds: [],
+      message: "Unauthorized",
+      status: 401,
+      displayMessage: "Unauthorized",
+      error: "Unauthorized"
+    }
     window.localStorage.setItem("guild", id);
     set(() => ({ chosenGuild: chosenGuild }));
+    return {
+      guilds: [],
+      message: "Success",
+      status: 200,
+      displayMessage: "Success",
+    };
   },
   setGuild: (guild) =>
     set((state) => ({
       ...state,
       guilds: { ...state.guilds, [guild.id]: guild },
     })),
+  removeChosenGuild: () => set((state) => ({ ...state, chosenGuild: undefined })),
 }));
+
+export const useGuild = createSelectors(useGuildStore);

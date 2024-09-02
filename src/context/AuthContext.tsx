@@ -73,6 +73,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [setGuild, setUser, token]);
 
+  window.addEventListener("storage", e => {
+    
+  })
+
   if (userLoading || guildLoading) {
     return (
       <Flex w="100vw" h="100vh" direction="column" justify="center" align="center">

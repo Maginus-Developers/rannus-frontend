@@ -1,33 +1,25 @@
-import { Button, Container, Flex, Image, ScrollArea, Text, Title } from "@mantine/core";
+import { Button, Container, Flex, Image, Text, Title } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { useGuildStore } from "../states/guild";
 
-interface Guild {
-  did: string;
-  icon?: string;
-  name: string;
-  guild_admin: string[];
-  bot_joined: boolean;
-  prefix: string;
-  banner?: string;
-  id: string;
-}
 
 export default function Dashboard() {
-  const guild: Guild = {
-    id: "abcxyzabcxyzabc",
-    did: "917410648076460084",
-    name: "Magimus Multiverse",
-    bot_joined: true,
-    guild_admin: ["xyzabcxyzabcxyz"],
-    prefix: "",
-    banner: "https://cdn.discordapp.com/banners/917410648076460084/07f5d27f1d2493854d6fe95e214dc710.png?size=4096",
-    icon: "https://cdn.discordapp.com/icons/917410648076460084/081d1008ac0c642346f018de581ac710.png",
-  };
+  const guild = useGuildStore((state) => state.chosenGuild);
+  const clearChosenGuild = useGuildStore((state) => state.removeChosenGuild);
+  const redirect = useNavigate();
+  if (!guild) {
+    return <Container size="xl">Loading...</Container>;
+  }
+  if (!guild.bot_joined) {
+    clearChosenGuild();
+    redirect("/choose-guild");
+    return ;
+  }
 
   const imageTrigger = guild.banner;
   const parent = null;
 
   return (
-    <ScrollArea h="100vh">
       <Container size="xl" p="0" pos="relative">
         <Container fluid size="xl" w="100%" pos="fixed" left="0" style={{ zIndex: "1" }} ref={parent}>
           {imageTrigger && (
@@ -77,6 +69,5 @@ export default function Dashboard() {
           />
         </Container>
       </Container>
-    </ScrollArea>
   );
 }

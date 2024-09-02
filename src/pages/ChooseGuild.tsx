@@ -1,15 +1,17 @@
-import { Avatar, Box, Button, Center, Container, Flex, Image, ScrollArea, SimpleGrid, Title } from "@mantine/core";
+import { Alert, Avatar, Box, Button, Center, Container, Flex, Image, ScrollArea, SimpleGrid, Title } from "@mantine/core";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
 import { useGuildStore } from "../states/guild";
 import { useUserStore } from "../states/user";
 import autoAnimate from "@formkit/auto-animate";
 import { useEffect, useState, useRef } from "react";
 import { client_id } from "../constants";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 const ChooseGuild = () => {
   const { user, redirectAuth, loading: userLoading } = useUserStore((state) => state);
   const { guilds, choseGuild } = useGuildStore((state) => state);
   const [imageTrigger, setImageTrigger] = useState("");
+  const [error, setError] = useState<string>();
   const parent = useRef(null);
   const navigate = useNavigate();
 
@@ -28,13 +30,21 @@ const ChooseGuild = () => {
       });
   }, [parent]);
 
-  const inviteBot = async () => {
+  const inviteBot = (guild_id:string)=>async () => {
     window
-      .open(`https://discord.com/oauth2/authorize?client_id=${client_id}&permissions=8&integration_type=0&scope=bot+applications.commands`, "_blank")
+      .open(
+        `https://discord.com/oauth2/authorize?client_id=${client_id}&permissions=8&integration_type=0&guild_id=${guild_id}&scope=bot+applications.commands`,
+        "_blank"
+      )
       ?.focus();
   };
   return (
     <ScrollArea h={`100vh`}>
+      {error && (
+        <Alert variant="filled" color="red" withCloseButton title="Error" icon={<IconInfoCircle />}>
+          {error}
+        </Alert>
+      )}
       <Container size="xl" p={"0"} pos={"relative"}>
         {" "}
         <Container
@@ -183,10 +193,17 @@ const ChooseGuild = () => {
                       onClick={
                         server.bot_joined
                           ? () => {
-                              choseGuild(server.id)();
+                              const result = choseGuild(server.id)();
+                              if (result.error) {
+                                setError(result.error);
+                                setTimeout(() => {
+                                  setError(undefined);
+                                }, 9000);
+                                return;
+                              }
                               navigate("/dashboard");
                             }
-                          : inviteBot
+                          : inviteBot(server.did)
                       }
                     >
                       {server.bot_joined ? "Go to Dashboard" : "Invite To Server"}

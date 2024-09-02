@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { API_URL } from "../constants";
 import { User } from "../types";
+import { createSelectors } from "../utils";
 
 type State = {
   user?: User;
@@ -33,7 +34,7 @@ export const redirectAuth = () => {
   const url = new URL(window.location.href);
   const callbackUrl = `${url.protocol}//${url.host}/callback`;
   const state = JSON.stringify({ redirectTo: url.pathname });
-  const redirectUrl = `${API_URL}/api/auth/getOAuthUrl?redirect=${callbackUrl}&state=${encodeURIComponent(state)}`;
+  const redirectUrl = `${API_URL}/api/auth/getOAuthUrl?redirect=${encodeURIComponent(callbackUrl)}&state=${encodeURIComponent(state)}`;
   window.location.replace(redirectUrl);
 };
 export const useUserStore = create<State & Actions>((set) => ({
@@ -78,7 +79,6 @@ export const useUserStore = create<State & Actions>((set) => ({
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
-      console.log(response);
       if (response.status === 401) {
         localStorage.removeItem("token");
         if (!autoRedirect) {
@@ -164,3 +164,5 @@ export const useUserStore = create<State & Actions>((set) => ({
   redirectAuth,
   setUser: (user) => set({ user }),
 }));
+
+export const useUser = createSelectors(useUserStore);
