@@ -28,7 +28,6 @@ const initialState: State = {
   user: undefined,
   loading: true,
   isLogout: false,
-  token: localStorage.getItem("token") || undefined,
 };
 export const redirectAuth = () => {
   const url = new URL(window.location.href);
@@ -49,6 +48,7 @@ export const useUserStore = create<State & Actions>((set) => ({
           error: "Unauthorized",
           user: undefined,
           status: 401,
+          token: undefined,
         });
         return {
           user: undefined,
@@ -63,6 +63,7 @@ export const useUserStore = create<State & Actions>((set) => ({
         error: "Unauthorized",
         user: undefined,
         status: 401,
+        token: undefined,
       });
       return {
         user: undefined,
@@ -87,6 +88,7 @@ export const useUserStore = create<State & Actions>((set) => ({
             error: "Unauthorized",
             user: undefined,
             status: 401,
+            token: undefined,
           });
           return {
             user: undefined,
@@ -101,12 +103,14 @@ export const useUserStore = create<State & Actions>((set) => ({
           error: "Unauthorized",
           user: undefined,
           status: 401,
+          token: undefined,
         });
         return {
           user: undefined,
           message: "Unauthorized",
           status: 401,
           displayMessage: "Unauthorized",
+          token: undefined,
         };
       } else if (response.status === 500) {
         set({
@@ -114,6 +118,7 @@ export const useUserStore = create<State & Actions>((set) => ({
           error: "An error occurred",
           user: undefined,
           status: 500,
+          token: undefined,
         });
         return {
           user: undefined,

@@ -1,6 +1,6 @@
 import { Button, Container, Flex, Menu, Table, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { API_URL } from "../constants";
 import { Member } from "../types";
 
@@ -15,10 +15,11 @@ const LeaderBoard = () => {
     totalItems: number;
     totalPages: number;
   }>();
-  const [page, setPage] = useState(1);
+  const [searchParams,] = useSearchParams();
+  const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"));
   const pathname = useParams<{ guildId: string }>();
   useEffect(() => {
-    fetch(`${API_URL}/api/guild/leaderboard/${pathname.guildId}?sortBy=${sort}&page=${page}`)
+    fetch(`${API_URL}/api/leaderboard/${pathname.guildId}?sortBy=${sort}&page=${page}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [sort, pathname.guildId, page]);

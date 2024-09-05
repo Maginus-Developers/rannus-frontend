@@ -10,7 +10,7 @@ export type AuthContextType = object;
 export const AuthContext = createContext<AuthContextType>({});
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { checkUser, loading: userLoading, token, setUser } = useUserStore((state) => state);
+  const { checkUser, loading: userLoading, token, setUser} = useUserStore((state) => state);
   const { fetchedGuild, loading: guildLoading, guilds, setGuild } = useGuildStore((state) => state);
   useEffect(() => {
     checkUser(false).then((res) => {
@@ -73,9 +73,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [setGuild, setUser, token]);
 
-  window.addEventListener("storage", e => {
-    
-  })
+  window.addEventListener("storage", (e) => {
+    console.log(e);
+  });
 
   if (userLoading || guildLoading) {
     return (
