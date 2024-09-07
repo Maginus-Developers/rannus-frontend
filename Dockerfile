@@ -1,7 +1,6 @@
 FROM node:lts-slim as install
 
 WORKDIR /app
-ENV NODE_ENV=production
 
 COPY ./package.json /app
 
@@ -11,6 +10,7 @@ FROM install as build
 WORKDIR /app
 COPY . /app
 RUN cp ./src/SideBarPathApp.tsx ./src/components/DashboardNavbar/SideBarPath.tsx 
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM nginx:stable-alpine
