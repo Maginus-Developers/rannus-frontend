@@ -119,11 +119,11 @@ const ChooseGuild = () => {
                 <Flex direction={"column"}>
                   <Box
                     pos={"relative"}
-                    onMouseOver={() => setImageTrigger(server.banner ? `${server.banner}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
+                    onMouseOver={() => setImageTrigger(server.banner ? `${server.banner}?size=2048` : server.icon ? `${server.icon}?size=2048` : "")}
                     onMouseLeave={() => setImageTrigger("")}
                   >
                     <Image
-                      src={server.banner ? `${server.banner}?size=4096` : server.icon && `${server.icon}?size=4096`}
+                      src={server.banner ? `${server.banner}?size=2048` : server.icon && `${server.icon}?size=2048`}
                       fit="cover"
                       h="8rem"
                       fallbackSrc="https://static.vecteezy.com/system/resources/previews/003/872/073/non_2x/seamless-coffee-tool-pattern-doodle-coffee-tool-icon-vector.jpg"
@@ -188,7 +188,7 @@ const ChooseGuild = () => {
                       style={{
                         borderRadius: "8px",
                       }}
-                      onMouseOver={() => setImageTrigger(server.icon ? `${server.icon}?size=4096` : server.icon ? `${server.icon}?size=4096` : "")}
+                      onMouseOver={() => setImageTrigger(server.icon ? `${server.icon}?size=2048` : server.icon ? `${server.icon}?size=2048` : "")}
                       onMouseLeave={() => setImageTrigger("")}
                       onClick={
                         server.bot_joined

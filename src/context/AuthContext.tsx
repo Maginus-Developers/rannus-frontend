@@ -1,32 +1,29 @@
 import { Flex, Loader, Title } from "@mantine/core";
-import React, { createContext, useEffect } from "react";
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import { REALTIME_URL } from "../constants";
 import { useGuildStore } from "../states/guild";
 import { useUserStore } from "../states/user";
 import { Guild, User } from "../types";
 
-export type AuthContextType = object;
-
-export const AuthContext = createContext<AuthContextType>({});
-
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { checkUser, loading: userLoading, token, setUser} = useUserStore((state) => state);
-  const { fetchedGuild, loading: guildLoading, guilds, setGuild } = useGuildStore((state) => state);
+export const AuthProvider = () => {
+  const { checkUser, loading: userLoading, token, setUser } = useUserStore((state) => state);
+  const { fetchedGuild, loading: guildLoading, setGuild, setGuildError: setError } = useGuildStore((state) => state);
   useEffect(() => {
     checkUser(false).then((res) => {
       if (res.status == 200) {
-        // console.log("User is logged in");
+        console.log("User is logged in");
+        fetchedGuild(false).then((res) => {
+          if (res.status == 200) {
+            console.log("Fetched guilds.");
+          }
+        });
+      } else {
+        console.log("User is not logged in");
+        setError("Unauthorized");
       }
     });
-  }, [checkUser]);
-  useEffect(() => {
-    if (!guilds.size && !userLoading)
-      fetchedGuild(false).then((res) => {
-        if (res.status == 200) {
-          //   console.log("Fetched guilds.");
-        }
-      });
-  }, [fetchedGuild, guilds.size, userLoading]);
+  }, [checkUser, fetchedGuild, setError]);
   useEffect(() => {
     function connect() {
       const ws = new WebSocket(REALTIME_URL);
@@ -73,10 +70,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [setGuild, setUser, token]);
 
+
   window.addEventListener("storage", (e) => {
     console.log(e);
   });
-
   if (userLoading || guildLoading) {
     return (
       <Flex w="100vw" h="100vh" direction="column" justify="center" align="center">
@@ -86,5 +83,5 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   }
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  return <Outlet />;
 };

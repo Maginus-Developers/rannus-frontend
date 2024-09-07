@@ -28,6 +28,7 @@ type Actions = {
   };
   setGuild: (guild: Guild) => void;
   removeChosenGuild: () => void;
+  setGuildError: (error: string) => void;
 };
 
 export const useGuildStore = create<State & Actions>((set, get) => ({
@@ -107,15 +108,26 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       data.forEach((guild) => (guildMap[guild.id] = guild));
       if (localStorage.getItem("guild")) {
         const chosenGuild = data.find((guild) => guild.id === localStorage.getItem("guild"));
+        if (!chosenGuild) {
+          localStorage.removeItem("guild");
+          set({ loading: false, error: "Guild not found" });
+          return { guilds: data, message: "Guild not found", status: 404, displayMessage: "Guild not found" }
+        }
         if (!chosenGuild?.bot_joined) {
+          localStorage.removeItem("guild");
+          set({ loading: false, error: "Unauthorized" });
           return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
         };
         const userID = useUser.getState().user?.id;
         if (!userID) {
+          localStorage.removeItem("guild");
+          set({ loading: false, error: "Unauthorized" });
           return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
         }
         console.log(chosenGuild.guild_admin, userID)
         if (!chosenGuild.guild_admin.includes(userID)) {
+          localStorage.removeItem("guild");
+          set({ loading: false, error: "Unauthorized" });
           return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
         };
         set((state) => ({
@@ -178,7 +190,6 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       error: "Unauthorized"
     };
     const userID = useUser.getState().user?.id
-    console.log(userID)
     if (!userID) return {
       guilds: [],
       message: "Unauthorized",
@@ -186,6 +197,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       displayMessage: "Unauthorized",
       error: "Unauthorized"
     }
+    console.log(userID, chosenGuild.guild_admin)
     if (!chosenGuild.guild_admin.includes(userID)) return {
       guilds: [],
       message: "Unauthorized",
@@ -208,6 +220,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       guilds: { ...state.guilds, [guild.id]: guild },
     })),
   removeChosenGuild: () => set((state) => ({ ...state, chosenGuild: undefined })),
+  setGuildError: (error) => set((state) => ({ ...state, error, loading: false })),
 }));
 
 export const useGuild = createSelectors(useGuildStore);

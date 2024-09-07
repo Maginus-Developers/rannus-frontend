@@ -13,11 +13,6 @@ import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
-    path: "/dashboard",
-    element: <DashboardNavbar />,
-    children: SidebarPath,
-  },
-  {
     path: "/",
     element: <HomeNavbar />,
     children: [
@@ -32,19 +27,30 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/callback",
-    element: <AuthCallback />,
+    path: "/",
+    element: <AuthProvider />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardNavbar />,
+        children: SidebarPath,
+      },
+      {
+        path: "/choose-guild",
+        element: <ChooseGuild />,
+      },
+    ],
   },
   {
-    path: "/choose-guild",
-    element: <ChooseGuild />,
+    path: "/callback",
+    element: <AuthCallback />,
   },
 ]);
 
 export default function App() {
   return (
-    <AuthProvider>
+    <>
       <RouterProvider router={router} />
-    </AuthProvider>
+    </>
   );
 }

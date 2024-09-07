@@ -1,6 +1,8 @@
 FROM node:lts-slim as install
 
 WORKDIR /app
+ENV NODE_ENV=production
+
 COPY ./package.json /app
 
 RUN npm install
