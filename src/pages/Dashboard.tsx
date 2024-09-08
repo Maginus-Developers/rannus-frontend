@@ -1,72 +1,81 @@
-import { Container } from "@mantine/core";
-
+import { Badge, Button, Card, Container, Flex, Group, SimpleGrid, Text } from "@mantine/core";
+import { IconSettings } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+import { useGuildStore } from "../states/guild";
+const feature = [
+  {
+    title: "Automated Response To Messages",
+    description: "thì nó là tính năng tự động nhắn trả lời thoy (không phải afk nha mấy friend)",
+    id: "auto_response",
+    link: "/dashboard/automated-response",
+    newFeature: false,
+  },
+];
 
 export default function Dashboard() {
-//   const guild = useGuildStore((state) => state.chosenGuild);
-//   const clearChosenGuild = useGuildStore((state) => state.removeChosenGuild);
-//   const redirect = useNavigate();
-//   if (!guild) {
-//     return <Container size="xl">Loading...</Container>;
-//   }
-//   if (!guild.bot_joined) {
-//     clearChosenGuild();
-//     redirect("/choose-guild");
-//     return ;
-//   }
+  const currentGuild = useGuildStore((state) => state.chosenGuild);
+  console.log(currentGuild);
+  return (
+    <Container>
+      <h1>Dashboard</h1>
+      <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }}>
+        {feature.map((item) => (
+          <FeatureCard
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            enable={false}
+            link={item.link}
+            newFeature={item.newFeature}
+          />
+        ))}
+      </SimpleGrid>
+    </Container>
+  );
+}
 
-//   const imageTrigger = guild.banner;
-//   const parent = null;
+function FeatureCard({
+  title,
+  description,
+  enable,
+  link,
+  newFeature,
+}: {
+  title: string;
+  description: string;
+  enable: boolean;
+  link: string;
+  newFeature: boolean;
+}) {
+  return (
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
+      {/* <Card.Section>
+        <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png" height={160} alt="Norway" />
+      </Card.Section> */}
 
-//   return (
-//       <Container size="xl" p="0" pos="relative">
-//         <Container fluid size="xl" w="100%" pos="fixed" left="0" style={{ zIndex: "1" }} ref={parent}>
-//           {imageTrigger && (
-//             <Image
-//               className="banner"
-//               h="100vh"
-//               width="100%"
-//               src={imageTrigger}
-//               pos="fixed"
-//               style={{
-//                 zIndex: "1",
-//                 scale: "1.1",
-//                 filter: "blur(5px)",
-//               }}
-//             />
-//           )}
-//           <Flex h="100vh" w="100%" justify="center" align="center" style={{ zIndex: "2" }}>
-//             <Container size="xl" p="0" style={{ zIndex: "2" }}>
-//               <Flex direction="column" align="center" gap={10}>
-//                 <Image src={guild.icon} h="100px" w="100px" style={{ borderRadius: "50%" }} />
-//                 <Title>{guild.name}</Title>
-//                 <Text size="xl">Moderate your server with ease.</Text>
-//                 <Button
-//                   variant="outline"
-//                   size="md"
-//                   color="#ffffff"
-//                   onClick={() => {
-//                     window.location.href = `https://discord.com/oauth2/authorize?client_id=1276226772026790064&guild_id=${guild.did}`;
-//                   }}
-//                 >
-//                   Invite Now
-//                 </Button>
-//               </Flex>
-//             </Container>
-//           </Flex>
-//         </Container>
-//         <Container size="xl" p="0" style={{ zIndex: "2" }}>
-//           <Image
-//             src={guild.banner}
-//             h="100vh"
-//             width="100%"
-//             pos="fixed"
-//             style={{
-//               zIndex: "0",
-//               scale: "1.1",
-//             }}
-//           />
-//         </Container>
-//       </Container>
-  //   );
-  return <Container></Container>
+      <Group justify="space-between" mt="md" mb="xs">
+        <Text fw={500}>{title}</Text>
+        {newFeature && <Badge color="pink">New Feature</Badge>}
+      </Group>
+
+      <Text size="sm" c="dimmed">
+        {description}
+      </Text>
+
+      {enable ? (
+        <Flex justify="center" align="center" mt="md">
+          <Button color="red" fullWidth radius="md">
+            Disable
+          </Button>
+          <Button color="blue" radius="md" ml={"sm"} component={Link} to={link}>
+            <IconSettings></IconSettings>
+          </Button>
+        </Flex>
+      ) : (
+        <Button color="blue" fullWidth mt="md" radius="md">
+          Enable
+        </Button>
+      )}
+    </Card>
+  );
 }

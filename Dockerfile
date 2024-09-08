@@ -9,7 +9,6 @@ RUN npm install
 FROM install as build
 WORKDIR /app
 COPY . /app
-RUN cp ./src/SideBarPathApp.tsx ./src/components/DashboardNavbar/SideBarPath.tsx 
 ENV NODE_ENV=production
 RUN npm run build
 

@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Menu, Table, Text } from "@mantine/core";
+import { Button, Container, Flex, Menu, Pagination, Table, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { API_URL } from "../constants";
@@ -16,13 +16,13 @@ const LeaderBoard = () => {
     totalPages: number;
   }>();
   const [searchParams,] = useSearchParams();
-  const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"));
+  const [activePage, setPage] = useState(parseInt(searchParams.get("page") || "1"));
   const pathname = useParams<{ guildId: string }>();
   useEffect(() => {
-    fetch(`${API_URL}/api/leaderboard/${pathname.guildId}?sortBy=${sort}&page=${page}`)
+    fetch(`${API_URL}/api/leaderboard/${pathname.guildId}?sortBy=${sort}&page=${activePage}`)
       .then((res) => res.json())
       .then((data) => setData(data));
-  }, [sort, pathname.guildId, page]);
+  }, [sort, pathname.guildId, activePage]);
   const rows = data?.items
     ? data.items.map((element, index) => (
         <Table.Tr key={element.id}>
@@ -58,12 +58,7 @@ const LeaderBoard = () => {
             <Text style={{ alignSelf: "center" }} mx="md">
               Trang {data?.page} / {data?.totalPages}
             </Text>
-            <Button disabled={data?.page == 1} onClick={() => setPage((state) => Math.max(state - 1, 0))} mx="md">
-              Trang trước
-            </Button>
-            <Button mx="md" disabled={data?.page == data?.totalPages} onClick={() => setPage((state) => Math.min(state + 1, data?.totalPages))}>
-              Trang sau
-            </Button>
+            <Pagination total={data.totalPages} value={activePage} onChange={setPage} mt="sm" />
           </>
         )}
       </Flex>

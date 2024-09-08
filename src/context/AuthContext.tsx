@@ -40,6 +40,9 @@ export const AuthProvider = () => {
           dontReconnect = true;
           return;
         }
+        if (data.type === "authenticated") {
+          console.log("Authenticated");
+        }
         if (data.record) {
           switch (data.type) {
             case "guild": {
@@ -69,7 +72,6 @@ export const AuthProvider = () => {
       connect();
     }
   }, [setGuild, setUser, token]);
-
 
   window.addEventListener("storage", (e) => {
     console.log(e);

@@ -4,7 +4,7 @@ import AuthCallback from "./pages/AuthCallback";
 // import Dashboard from "./pages/Dashboard";
 // import GuildChooser from "./pages/GuildChooser";
 import Home from "./pages/Home";
-import { SidebarPath } from "./SideBarPathApp";
+import { SidebarPath } from "@/SideBarPath";
 import ChooseGuild from "./pages/ChooseGuild";
 import LeaderBoard from "./pages/LeaderBoard";
 import HomeNavbar from "./components/HomeNavbar";

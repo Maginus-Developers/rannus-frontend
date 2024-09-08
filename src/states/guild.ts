@@ -10,6 +10,7 @@ type State = {
   error?: string;
   status?: number;
   chosenGuild?: Guild;
+  currentGuildAutoResponse: string[];
 };
 type ApiResponse = {
   guilds: Guild[];
@@ -35,6 +36,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
   guilds: {},
   chosenGuild: undefined,
   loading: true,
+  currentGuildAutoResponse: [],
   fetchedGuild: async (autoRedirect) => {
     set({ loading: true, error: undefined, guilds: {}, status: undefined });
     if (!window.localStorage.getItem("token")) {
@@ -107,7 +109,8 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       const guildMap = {} as Record<string, Guild>;
       data.forEach((guild) => (guildMap[guild.id] = guild));
       if (localStorage.getItem("guild")) {
-        const chosenGuild = data.find((guild) => guild.id === localStorage.getItem("guild"));
+        const guildId = localStorage.getItem("guild");
+        const chosenGuild = guildId ? guildMap[guildId] : undefined;
         if (!chosenGuild) {
           localStorage.removeItem("guild");
           set({ loading: false, error: "Guild not found" });
@@ -124,7 +127,6 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
           set({ loading: false, error: "Unauthorized" });
           return { guilds: data, message: "Unauthorized", status: 401, displayMessage: "Unauthorized" }
         }
-        console.log(chosenGuild.guild_admin, userID)
         if (!chosenGuild.guild_admin.includes(userID)) {
           localStorage.removeItem("guild");
           set({ loading: false, error: "Unauthorized" });

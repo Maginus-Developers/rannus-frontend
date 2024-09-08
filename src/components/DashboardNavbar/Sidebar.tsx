@@ -1,7 +1,7 @@
 import { Button, em, Text } from "@mantine/core";
 import { useHover, useMediaQuery } from "@mantine/hooks";
 import { Link, useLocation } from "react-router-dom";
-import { SidebarPath } from "./SideBarPath";
+import { SidebarPath } from "@/SideBarPath";
 import { RouteObjectWithMeta } from "../../types";
 
 const Sidebar = () => {

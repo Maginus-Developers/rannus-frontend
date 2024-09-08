@@ -89,14 +89,14 @@ const DashboardNavbar = () => {
             <ServerList></ServerList>
           </Center>
         </AppShell.Section>
-        <AppShell.Section grow component={ScrollArea}>
+        <AppShell.Section grow component={ScrollArea} type="scroll">
           <Sidebar></Sidebar>
         </AppShell.Section>
         {/* <AppShell.Section>idk</AppShell.Section> */}
       </AppShell.Navbar>
 
       <AppShell.Main ml={isMobile ? "0" : "md"}>
-        <ScrollArea h={`calc(100vh - ${headerHeight + 30}px)`}>
+        <ScrollArea h={`calc(100vh - ${headerHeight + 30}px)`} type="scroll" p="md">
           <Outlet />
         </ScrollArea>
       </AppShell.Main>
