@@ -30,7 +30,7 @@ const ChooseGuild = () => {
       });
   }, [parent]);
 
-  const inviteBot = (guild_id:string)=>async () => {
+  const inviteBot = (guild_id: string) => async () => {
     window
       .open(
         `https://discord.com/oauth2/authorize?client_id=${client_id}&permissions=8&integration_type=0&guild_id=${guild_id}&scope=bot+applications.commands`,

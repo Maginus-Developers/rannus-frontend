@@ -126,6 +126,21 @@ export const useUserStore = create<State & Actions>((set) => ({
           status: 500,
           displayMessage: "An error occurred",
         };
+      } else if (response.status === 409) {
+        localStorage.removeItem("token");
+        set({
+          loading: false,
+          error: "Conflict",
+          user: undefined,
+          status: 409,
+          token: undefined,
+        });
+        return {
+          user: undefined,
+          message: "Conflict",
+          status: 409,
+          displayMessage: "Conflict"
+        };
       }
       const data = (await response.json()) as User;
       set({

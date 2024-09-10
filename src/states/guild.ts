@@ -105,7 +105,7 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
           displayMessage: "Internal Server Error",
         };
       }
-      const data = (await response.json()) as Guild[];
+      const data = (await response.json()).data as Guild[];
       const guildMap = {} as Record<string, Guild>;
       data.forEach((guild) => (guildMap[guild.id] = guild));
       if (localStorage.getItem("guild")) {
@@ -199,7 +199,6 @@ export const useGuildStore = create<State & Actions>((set, get) => ({
       displayMessage: "Unauthorized",
       error: "Unauthorized"
     }
-    console.log(userID, chosenGuild.guild_admin)
     if (!chosenGuild.guild_admin.includes(userID)) return {
       guilds: [],
       message: "Unauthorized",
