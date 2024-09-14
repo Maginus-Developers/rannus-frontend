@@ -6,15 +6,27 @@ export type RouteObjectWithMeta = RouteObject & {
   path: string;
   getUrl?: () => string;
 };
-export type User = {
+
+
+interface RecordModel {
+  [key: string]: unknown;
+  id: string;
+  created: string;
+  updated: string;
+  collectionId: string;
+  collectionName: string;
+  expand?: {
+    [key: string]: unknown;
+  };
+}
+export interface User extends RecordModel {
   did: string;
   avatar: string;
   username: string;
   guild_admin: string[];
-  id: string;
 };
 
-export type Guild = {
+export interface Guild extends RecordModel {
   did: string;
   icon?: string;
   name: string;
@@ -22,10 +34,10 @@ export type Guild = {
   bot_joined: boolean;
   prefix: string;
   banner?: string;
-  id: string;
+  auto_response: string[];
 };
 
-export interface Member {
+export interface Member extends RecordModel {
   did: string;
   guildDid: string;
   xp: number;
@@ -35,5 +47,11 @@ export interface Member {
   expand?: {
     user: User;
   };
-  id: string;
+}
+
+export interface Autorep extends RecordModel {
+  guildDid: string;
+  match: string;
+  case: boolean; // case sensitive or not
+  type: "match" | "contains" | "startsWith" | "endsWith";
 }

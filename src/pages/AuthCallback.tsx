@@ -1,18 +1,18 @@
 import { Flex, Loader, Title } from "@mantine/core";
-import { useEffect } from "react";
 
 export default function AuthCallback() {
-  // example
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      // success
-      window.location.href = "/dashboard";
-    }, 5000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
+  const url = new URL(window.location.href);
+  const code = url.searchParams.get("jwt");
+  if (code) {
+    window.localStorage.setItem("token", code);
+    const stateParam = url.searchParams.get("state");
+    if (stateParam) {
+      const state = JSON.parse(decodeURIComponent(stateParam));
+      if (state.redirectTo) {
+        window.location.href = state.redirectTo;
+      }
+    }
+  }
 
   return (
     <Flex w="100vw" h="100vh" direction="column" justify="center" align="center">

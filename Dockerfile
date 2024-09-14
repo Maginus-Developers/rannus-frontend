@@ -1,6 +1,7 @@
 FROM node:lts-slim as install
 
 WORKDIR /app
+
 COPY ./package.json /app
 
 RUN npm install
@@ -8,6 +9,7 @@ RUN npm install
 FROM install as build
 WORKDIR /app
 COPY . /app
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM nginx:stable-alpine

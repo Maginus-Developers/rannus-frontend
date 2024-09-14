@@ -1,7 +1,7 @@
 import { Box, Flex, Group, Text } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
 import { IconHome, IconLayoutDashboard } from "@tabler/icons-react";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { Link, Outlet, ScrollRestoration } from "react-router-dom";
 
 export default function HomeNavbar() {
   const { hovered: homeHovered, ref: homeRef } = useHover();
@@ -29,6 +29,7 @@ export default function HomeNavbar() {
           </Link>
         </Group>
       </Box>
+      <Outlet />
     </Box>
   );
 }
