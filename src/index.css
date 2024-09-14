@@ -1,15 +1,19 @@
 :root[data-mantine-color-scheme="dark"] {
   --mantine-color-body: #272934;
+  --mantine-color-text: #fff;
 }
 
 * {
   box-sizing: border-box;
+  color: #fff;
 }
 
 body {
-  background: #272934;
+  background: #0d0015;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 .server-card {
